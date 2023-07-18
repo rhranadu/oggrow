@@ -73,7 +73,7 @@ _ide_helper.php
 .settings/
 # Ignore cache
 .cache/
-
+composer.lock
 # Ignore user created files :)
 *.bak
 *.orig
