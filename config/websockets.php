@@ -33,6 +33,17 @@ return [
             'enable_statistics' => true,
         ],
     ],
+    'channels' => [
+        'public' => [
+            'driver' => 'pusher',
+            'name' => null,
+            'broadcast_as' => 'dataset',
+            'routes' => [
+                'api' => 'api/websockets',
+                'admin' => 'admin/websockets',
+            ],
+        ],
+    ],
 
     /*
      * This class is responsible for finding the apps. The default provider

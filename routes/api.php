@@ -14,6 +14,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('api')->post('/login',function (Request $request){
+    $input = $request->only('email');
+    $jwt_token = null;
+    $user=\App\Models\User::where('email','=',$input)->first();
+
+    if (!$jwt_token = JWTAuth::fromUser($user)) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid Email',
+        ], Response::HTTP_UNAUTHORIZED);
+    }
+
+    return response()->json([
+        'success' => true,
+        'token' => $jwt_token,
+    ]);
+});
+Route::middleware('jwt')->get('/users', function () {
+   $data =  DB::table('users')->get();
+    return response()->json([
+        'success' => true,
+        'data' => $data,
+    ]);
 });
